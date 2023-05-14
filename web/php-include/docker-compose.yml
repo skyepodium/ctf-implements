@@ -14,4 +14,4 @@ services:
   php:
     image: php:7.1.33-fpm
     volumes:
-      - ./src:/var/www/html/src
+      - ./src:/var/www/html

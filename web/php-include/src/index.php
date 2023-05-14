@@ -39,7 +39,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="./static/index.css">
+        <link rel="stylesheet" href="./static/css/index.css">
     </head>
     <body>
         <div class="upload-container">
@@ -51,7 +51,7 @@
                     include($uploaded_file_path);
                 }
             ?>
-            <img class="thumb" src="./static/alice.png">
+            <img class="thumb" src="./static/image/alice.png">
 
             <form class="upload-form" action="./index.php" method="post" enctype="multipart/form-data">
                 <input class="field" type="file" name="file">
