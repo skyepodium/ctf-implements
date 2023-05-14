@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./css/index.css" />
+</head>
+
+<body>
+    <div class="gallery-container">
+        <h1 class="title">Image Gallery</h1>
+        <h3 class="title-sub">choose image</h3>
+
+        <select class="selectBox" onchange="updateSelectedImage(event)">
+            <option value="alice.png">alice</option>
+            <option value="alice2.png">alice2</option>
+            <option value="flag.png">flag</option>
+        </select>
+
+        <img class="thumb" src="" alt="Image Gallery" id="image-gallery" />
+    </div>
+
+    <script>
+        const setImageSrc = (imageName) => {
+            const imageElement = document.querySelector('.thumb')
+            imageElement.src = `./image/${imageName}`
+        }
+
+        const getImageNameFromQuery = () => {
+            const queryString = window?.location?.search;
+            const params = new URLSearchParams(queryString);
+
+            const imageName = params?.get('image')
+            return imageName
+        }
+
+        const updateSelectedImage = (event) => {
+            location.href = `?image=${event?.target?.value}`
+        }
+
+        const setSelectBoxValue = (imageName) => {
+            const selectBox = document.querySelector('.selectBox')
+            selectBox.value = imageName
+        }
+
+        const main = () => {
+            const defaultImageName = 'alice.png'
+            const imageName = getImageNameFromQuery() || defaultImageName
+
+            setImageSrc(imageName)
+            setSelectBoxValue(imageName)
+        }
+
+        main()
+    </script>
+</body>
+
+</html>
