@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <title>해킹포터 - 기숙사 배정</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        // 0. 사용할 변수 정의 및 초기화
+        let flagText = "Hﱈ{ﱖ1ﱛ3ﱇPﰘTﱼ3ﱺ_ﱰ0ﱪ_ﰉ5ﱧ4ﱯ3ﰝ0ﱥ3ﱕ"
+
+        let cnt = 0
+
+        let cntElement = null
+
+        let btnElement = null
+
+        let inputElement = null
+
+        let baseText = "슬리데린은 싫어요"
+
+
+        // 1. html 문서가 로드 되면 초기화 및 이벤트 헨들러를 등록합니다.
+        window.onload = function () {
+            // 1) 횟수 초기화
+            cnt = 0;
+            cntElement = document.getElementById('cnt');
+            cntElement.innerHTML = cnt;
+
+            // 2) 버튼에 클릭 이벤트 핸들러 등록
+            btnElement = document.getElementById('input_btn');
+            btnElement.onclick = inputCheck
+        };
+
+
+        // 2. input에서 enter를 누르면 입력 내용을 확인합니다.
+        function press(f) {
+            if (f.keyCode == 13) {
+                inputCheck()
+            }
+        }
+
+        // 3. 입력한 내용을 확인합니다.
+        var inputCheck = function () {
+
+            inputElement = document.getElementById('input_box')
+
+            if (inputElement.value === baseText) {
+
+                var tempValue = ""
+
+                for (var j = 0; j < flagText.length; j++) {
+                    var charNum = flagText.charCodeAt(j);
+
+                    var xorResult = charNum ^ (cnt - j);
+
+                    tempValue += String.fromCharCode(xorResult)
+                }
+
+                console.log('tempValue', tempValue)
+                flagText = tempValue
+
+                cnt += 1
+                cntElement.innerHTML = cnt;
+                inputElement.value = ''
+
+                if (cnt === 1000) {
+                    alert('정답을 찾았습니다. ' + flagText)
+                }
+            } else {
+                alert('잘못 입력했습니다.')
+            }
+        }
+    </script>
+
+    <div class="wrapper">
+        <div class="title">
+            기숙사 배정
+        </div>
+        <div class="header">
+            <p>슬리데린은 싫다고?</p>
+            <p>음... 그럼</p>
+            <p><span class="txt_bold">슬리데린은 싫어요</span>을 딱 1,000 번만 외쳐보게나</p>
+            <p class="txt_sub">정답은 다음과 같은 형식입니다.: HP{내용}</p>
+        </div>
+        <div class="container">
+            <img class="image" src="/resources/images/house_hat.png">
+        </div>
+        <div class="input_wrapper">
+            <div class="input_cnt">
+                횟수: <span id="cnt">0</span>
+            </div>
+            <div class="input_area">
+                <input id="input_box" type="text" placeholder="슬리데린은 싫어요" onkeypress="JavaScript:press(event)">
+                <btn id="input_btn">입력</btn>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .wrapper {
+            margin-top: 40px;
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: 600;
+        }
+
+        .txt_bold {
+            font-weight: 600;
+            color: #4f2cfa;
+        }
+
+        .txt_sub {
+            font-style: italic;
+        }
+
+        .container {
+            width: inherit;
+        }
+
+        .image {
+            width: inherit;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .input_wrapper {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .input_cnt {
+            width: inherit;
+            font-weight: 600;
+        }
+
+        .input_area {
+            width: inherit;
+            height: 50px;
+            line-height: 50px;
+            margin-top: 30px;
+        }
+
+        #input_box {
+            padding-left: 12px;
+            display: block;
+            width: calc(100% - 70px);
+            height: inherit;
+            line-height: inherit;
+            float: left;
+            box-sizing: border-box;
+            font-size: 30px;
+            font-weight: 600;
+            color: #4f2cfa;
+        }
+
+        #input_btn {
+            display: block;
+            width: 70;
+            height: inherit;
+            line-height: inherit;
+            float: left;
+            box-sizing: border-box;
+            background-color: #4f2cfa;
+            text-align: center;
+            color: white;
+            border: 1px solid #4f2cfa;
+            cursor: pointer;
+        }
+    </style>
+</body>
+
+</html>
