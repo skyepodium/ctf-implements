@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>Image Gallery</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Image Gallery</h1>
+
+        <select class="selectBox">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+
+        <img src="" class="imageBox">
+    </div>
+
+
+    <script>
+        // get image
+        const getImage = (imageName) => {
+            const src = `/image?imageName=${imageName}`;
+            const imageBox = document.querySelector(".imageBox");
+            imageBox.src = src;
+        }
+
+        // init
+        const selectBox = document.querySelector(".selectBox");
+        getImage(selectBox.value);
+
+        // selecteBox event
+        selectBox.addEventListener("change", (event) => {
+            const selectedImage = event.target?.value;
+            getImage(selectedImage);
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 70px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 60px;
+        }
+
+        .selectBox {
+            width: 100%;
+            margin-bottom: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .imageBox {
+            width: inherit;
+        }
+    </style>
+</body>
+
+</html>

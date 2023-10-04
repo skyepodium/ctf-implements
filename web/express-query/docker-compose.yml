@@ -1,0 +1,10 @@
+version: '3'
+services:
+  express-app:
+    build:
+      context: .
+    container_name: express-container
+    volumes:
+      - ./src:/src
+    ports:
+      - "3000:3000"
