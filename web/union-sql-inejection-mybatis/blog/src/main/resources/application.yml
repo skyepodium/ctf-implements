@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: root
+    password: nv34238sdf
+    mapper-locations: classpath:/mapper/**/*.xml
+    jdbc-url: jdbc:mysql://localhost:3306/blog?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+    driver: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  config-location: classpath:/mybatis/mybatis-config.xml

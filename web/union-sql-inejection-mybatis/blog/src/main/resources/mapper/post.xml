@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.mapper.PostMapper">
+
+    <select id="getPosts" resultType="com.example.blog.domain.Post">
+        SELECT /* PostMapper.getPosts */
+                post_seq
+            ,   title
+            ,   content
+            ,   created_at
+            ,   modified_at
+        FROM
+                post
+        <where>
+        <if test="postSearchParam.searchWord != null">
+            title like '%${postSearchParam.searchWord}%'
+        </if>
+        </where>
+    </select>
+</mapper>
