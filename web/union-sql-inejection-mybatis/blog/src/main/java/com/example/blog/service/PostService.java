@@ -14,7 +14,7 @@ public class PostService {
 
     private final PostMapper postMapper;
 
-    public List<Post> getPosts(PostSearchParam postSearchParam) {
-        return postMapper.getPosts(postSearchParam);
+    public List<Post> getPostsBySearchParam(PostSearchParam postSearchParam) {
+        return postMapper.selectPostsBySearchParam(postSearchParam);
     }
 }

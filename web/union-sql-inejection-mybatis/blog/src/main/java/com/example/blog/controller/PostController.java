@@ -18,7 +18,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("")
-    public List<Post> getPosts(PostSearchParam postSearchParam) {
-        return postService.getPosts(postSearchParam);
+    public List<Post> getPostsBySearchParam(PostSearchParam postSearchParam) {
+        return postService.getPostsBySearchParam(postSearchParam);
     }
 }

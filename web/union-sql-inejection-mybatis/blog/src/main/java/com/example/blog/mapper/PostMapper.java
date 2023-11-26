@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper
 public interface PostMapper {
 
-    List<Post> getPosts(@Param("postSearchParam") PostSearchParam postSearchParam);
+    List<Post> selectPostsBySearchParam(@Param("postSearchParam") PostSearchParam postSearchParam);
 }
