@@ -15,13 +15,12 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(value = "com.example", sqlSessionFactoryRef = "SqlSessionFactory")
+@MapperScan(value = "com.example.blog", sqlSessionFactoryRef = "SqlSessionFactory")
 public class DbConfig {
 
     @Value("${spring.datasource.mapper-locations}")
     String mPath;
 
-    // mybatis 설정 파일을 따로 작성해서 임포트할 예정 - snake_case -> camelCase 를 위함
     @Value("${mybatis.config-location}")
     String mybatisConfigPath;
 
@@ -46,5 +45,4 @@ public class DbConfig {
     public SqlSessionTemplate SqlSessionTemplate(@Qualifier("SqlSessionFactory") SqlSessionFactory firstSqlSessionFactory) {
         return new SqlSessionTemplate(firstSqlSessionFactory);
     }
-
 }
