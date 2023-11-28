@@ -5,7 +5,7 @@ const fs = require('fs/promises')
 const path = require('path')
 
 const app = express()
-const port = 3000
+const port = 3001
 
 const { getPostsBySearchWord } = require(path.join(__dirname, './service', 'PostService'))
 
@@ -47,16 +47,34 @@ db.once('open', () => {
 const rootPath = process.cwd()
 const Post = require(path.join(rootPath, './model', 'Post'))
 
-app.get('/', (req, res) => {
-  res.send('Hello world')
-})
+const getMaskedFlag = (post) => {
+  const { _id, title, content } = post
+  return {
+    _id,
+    title,
+    content,
+    flag: 'CLASSIFIED'
+  }
+}
+
+const postFilter = (posts) => {
+  return posts.map(post => {
+    const { _id, title, content, flag } = getMaskedFlag(post)
+    return {
+      _id,
+      title,
+      content,
+      flag
+    }
+  })
+}
 
 app.get('/api/v1/post', async (req, res) => {
-  const { searchWord } = req.query // Use req.query instead of req.params
-  console.log('req.query', req.query)
+  const { searchParam } = req.query // Use req.query instead of req.params
   try {
-    const posts = await getPostsBySearchWord(searchWord) // Pass searchWord directly
-    res.json(posts)
+    const posts = await getPostsBySearchWord(searchParam)// Pass searchWord directly
+
+    res.json(postFilter(posts))
   } catch (err) {
     console.error(err)
     res.status(500).send('Server error')
@@ -67,8 +85,8 @@ app.get('/api/v1/post/:postId', async (req, res) => {
   const { postId } = req.params
 
   try {
-    const posts = await Post.findById(postId)
-    res.json(posts)
+    const post = await Post.findById(postId)
+    res.json(getMaskedFlag(post))
   } catch (err) {
     console.error(err)
     res.status(500).send('Server error')

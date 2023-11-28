@@ -4,20 +4,15 @@ const rootPath = process.cwd()
 
 const Post = require(path.join(rootPath, './model', 'Post'))
 
-const getPostsBySearchWord = async (searchWord) => {
+const getPostsBySearchWord = async (searchParam) => {
   try {
-    // if searchWord is empty string, return all posts
-    if (!searchWord) {
+    if (!searchParam) {
       return await Post.find({ deleted: false })
     }
-    console.log('searchWord', searchWord)
-    // return title and content that contains searchWord
+
     return await Post.find({
       deleted: false,
-      $or: [
-        { title: { $regex: searchWord, $options: 'i' } },
-        { content: { $regex: searchWord, $options: 'i' } }
-      ]
+      ...searchParam
     })
   } catch (err) {
     console.error(err)

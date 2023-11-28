@@ -15,8 +15,9 @@
     "deleted": false
   },
   {
-    "title": "FLAG{b4ind_3ql_1njecti0n_1s_4w3s0m3}",
+    "title": "FLAG",
     "content": "flag is good",
-    "deleted": true
+    "deleted": true,
+    "flag": "FLAG{b4ind_3ql_1njecti0n_1s_4w3s0m3}"
   }
 ]
