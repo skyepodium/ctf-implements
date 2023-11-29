@@ -2,7 +2,7 @@ import string
 
 import requests
 
-base_url = "http://localhost:3001/api/v1/post"
+base_url = "http://localhost:3000/api/v1/post"
 table = string.ascii_lowercase + string.ascii_uppercase + string.digits + "{}_"
 
 flag = ""
@@ -19,4 +19,3 @@ while True:
         break
 
 print("flag", flag)
-

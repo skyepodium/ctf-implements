@@ -1,25 +1,47 @@
-const path = require('path')
-
-const rootPath = process.cwd()
-
-const Post = require(path.join(rootPath, './model', 'Post'))
+const Post = require('@model/Post')
 
 const getPostsBySearchWord = async (searchParam) => {
-  try {
-    if (!searchParam) {
-      return await Post.find({ deleted: false })
-    }
+  if (!searchParam) {
+    const posts = await Post.find({ deleted: false })
+    return postFilter(posts)
+  }
 
-    return await Post.find({
-      deleted: false,
-      ...searchParam
-    })
-  } catch (err) {
-    console.error(err)
-    throw new Error('Server error')
+  const posts = await Post.find({
+    deleted: false,
+    ...searchParam
+  })
+
+  return postFilter(posts)
+}
+
+const getPostById = async (postId) => {
+  const post = await Post.findById(postId)
+  return getMaskedFlag(post)
+}
+
+const getMaskedFlag = (post) => {
+  const { _id, title, content } = post
+  return {
+    _id,
+    title,
+    content,
+    flag: 'CLASSIFIED'
   }
 }
 
+const postFilter = (posts) => {
+  return posts.map(post => {
+    const { _id, title, content, flag } = getMaskedFlag(post)
+    return {
+      _id,
+      title,
+      content,
+      flag
+    }
+  })
+}
+
 module.exports = {
-  getPostsBySearchWord
+  getPostsBySearchWord,
+  getPostById
 }
