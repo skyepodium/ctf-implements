@@ -1,22 +1,22 @@
 [
   {
     "title": "Spring Boot",
-    "content": "Spring Boot is good",
+    "content": "In the ever-evolving landscape of software development, finding the right framework is crucial for efficient and robust application development. One framework that stands out is Spring Boot. Its versatility, simplicity, and extensive community support make it an excellent choice for developers looking to streamline their projects.",
     "deleted": false
   },
   {
     "title": "express",
-    "content": "express is good",
+    "content": "In the ever-evolving landscape of software development, finding the right framework is crucial for efficient and robust application development. One framework that stands out is Spring Boot. Its versatility, simplicity, and extensive community support make it an excellent choice for developers looking to streamline their projects.",
     "deleted": false
   },
   {
     "title": "mongoDB",
-    "content": "mongoDB is good",
+    "content": "In the ever-evolving landscape of software development, finding the right framework is crucial for efficient and robust application development. One framework that stands out is Spring Boot. Its versatility, simplicity, and extensive community support make it an excellent choice for developers looking to streamline their projects.",
     "deleted": false
   },
   {
     "title": "FLAG",
-    "content": "flag is good",
+    "content": "In the ever-evolving landscape of software development, finding the right framework is crucial for efficient and robust application development. One framework that stands out is Spring Boot. Its versatility, simplicity, and extensive community support make it an excellent choice for developers looking to streamline their projects.",
     "deleted": true,
     "flag": "FLAG{b4ind_3ql_1nj3cti0n_1s_4w3s0m3}"
   }
