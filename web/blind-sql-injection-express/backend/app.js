@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 4000
 const path = require('path')
+
+const cors = require('cors')
 
 const { addAliases } = require('module-alias')
 
@@ -23,6 +25,11 @@ connectToMongoDB()
 loadDataToMongoDB()
 
 const postController = require('@controller/PostController')
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 
 app.use('/api/v1/post', postController)
 
