@@ -22,11 +22,13 @@ function App (): JSX.Element {
   }, [])
 
   return (
-    <div className="">
+    <div className="main">
         <Header/>
-        {posts?.map((post) => (
-          <Post key={post._id} _id={post._id} title={post.title} content={post.content}/>
-        ))}
+        <div className='layout'>
+            {posts?.map((post) => (
+            <Post key={post._id} _id={post._id} title={post.title} content={post.content}/>
+            ))}
+        </div>
     </div>
   )
 }

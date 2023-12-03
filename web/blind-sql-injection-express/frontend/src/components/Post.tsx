@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface Props {
   _id: string
@@ -6,15 +7,13 @@ interface Props {
   content: string
 }
 
-export default function Post ({ title, content }: Props): JSX.Element {
+export default function Post ({ title, content, _id }: Props): JSX.Element {
   return (
-    <div className="post">
+    <Link className="post" to={`/post/${_id}`}>
         <div className="title">
             {title}
         </div>
-        <div className="content">
-            {content}
-        </div>
-    </div>
+        <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
+    </Link>
   )
 }
