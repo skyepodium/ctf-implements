@@ -13,7 +13,7 @@
 <c:if test="${not empty files}">
     <ul>
         <c:forEach var="file" items="${files}">
-            <li><a href="/upload/${file}" target="_blank">${file}</a></li>
+            <li><a href="/test/${file}" target="_blank">${file}</a></li>
         </c:forEach>
     </ul>
 </c:if>

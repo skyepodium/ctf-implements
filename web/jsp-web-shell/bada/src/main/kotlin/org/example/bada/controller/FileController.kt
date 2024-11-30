@@ -1,12 +1,16 @@
 package org.example.bada.controller
-
+import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.FileSystemResource
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.io.IOException
-
+import java.nio.file.Files
 
 @Controller
 class FileController {
@@ -53,9 +57,20 @@ class FileController {
         return "files"
     }
 
+    private val jspPath = "WEB-INF/views/upload/"
+    private val staticPath = "src/main/webapp/WEB-INF/views/upload/"
+
     @GetMapping("/test/{filename}")
-    fun renderUploadedJsp(@PathVariable filename: String): String {
-        println("!!! filename: $filename")
+    fun handleRequest(@PathVariable filename: String, model: Model): Any {
+        // 정적 파일 처리
+        val file = File("$FILE_DIRECTORY/$filename")
+        if (file.exists()) {
+            val contentType = Files.probeContentType(file.toPath()) ?: "application/octet-stream"
+            return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, contentType)
+                .body(FileSystemResource(file).inputStream.readBytes())
+        }
+
         return "upload/$filename"
     }
 

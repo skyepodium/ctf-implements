@@ -9,7 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:/path/to/static/uploads/")
-                .setCachePeriod(3600); // 캐시 기간 설정
+                .addResourceLocations("classpath:/WEB-INF/views/upload/");
     }
 }
