@@ -1,7 +1,14 @@
 <?php
 
 // file upload directory
-$upload_directory = "uploads/";
+$UPLOAD_DIR = "uploads/";
+
+// Check if the upload directory exists, if not, create it
+if (!is_dir($UPLOAD_DIR)) {
+    if (!mkdir($UPLOAD_DIR, 0777, true)) {
+        die("<h1>Failed to create upload directory</h1>");
+    }
+}
 
 // file upload by post method
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -25,26 +32,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // change file name to uniqid
-    $uniq_file_name = uniqid();
-    $target_file = $upload_directory . $uniq_file_name;
+    $uniq_file_name = uniqid() . ".html";
+    $target_file = $UPLOAD_DIR . $uniq_file_name;
 
     // move file to upload directory
     if (move_uploaded_file($file_tmp, $target_file)) {
         $queryString = http_build_query(['file' => $uniq_file_name]);
         $redirectURL = '?' . $queryString;
+
         header('Location: ' . $redirectURL);
+        exit;
+    } else {
+        echo "<h1>Failed to upload the file</h1>";
     }
 }
 
 // read file by get method
+$uploaded_file_path = null;
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['file'])) {
         $uploaded_file = $_GET['file'];
-        $uploaded_file_path = $upload_directory . $uploaded_file;
+        $uploaded_file_path = $UPLOAD_DIR . $uploaded_file;
+
+        if (!file_exists($uploaded_file_path)) {
+            echo "<h1>File not found</h1>";
+            return;
+        }
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html>
