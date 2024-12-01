@@ -25,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $file_name = $uploaded_user_file['name'];
 
     // check file extension
-    $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-    if ($file_extension !== 'html') {
-        echo "<h1>only html file is allowed.</h1>";
-        return;
-    }
+    // $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    // if ($file_extension !== 'html') {
+    //     echo "<h1>only html file is allowed.</h1>";
+    //     return;
+    // }
 
     // change file name to uniqid
     $uniq_file_name = uniqid() . ".html";
