@@ -1,5 +1,4 @@
 <?php
-
 // file upload directory
 $UPLOAD_DIR = "uploads/";
 
