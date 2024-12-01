@@ -1,5 +1,4 @@
 <?php
-
 // file upload directory
 $UPLOAD_DIR = "uploads/";
 
@@ -57,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Success message and redirect
     echo "<script>
         alert('파일 업로드 성공: " . htmlspecialchars($uniq_file_name) . "');
-        window.location.href = './index.php';
+        window.location.href = './gallery.php';
     </script>";
     exit;
 }

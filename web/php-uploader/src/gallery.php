@@ -1,13 +1,14 @@
 <?php
-
 // file upload directory
 $upload_directory = "uploads/";
 
 // get uploaded files
 $uploaded_files = glob($upload_directory . "*");
 
-
-
+// sort files by modification time (newest first)
+usort($uploaded_files, function ($a, $b) {
+    return filemtime($b) - filemtime($a); // Descending order (newest first)
+});
 ?>
 
 
@@ -16,6 +17,7 @@ $uploaded_files = glob($upload_directory . "*");
 
 <head>
     <link rel="stylesheet" href="./static/css/index.css">
+    <script src="./static/js/magic-grid@3.4.7/magic-grid.min.js"></script>  
 </head>
 
 <body>
@@ -34,6 +36,18 @@ $uploaded_files = glob($upload_directory . "*");
             </div>
         </div>
     </div>
+
+    <script>
+    const magicGrid = new MagicGrid({
+        container: '.gallery-container',
+        animate: true,
+        gutter: 30,
+        static: true,
+        useMin: true
+    });
+
+    magicGrid.listen();
+    </script>
 </body>
 
 </html>
