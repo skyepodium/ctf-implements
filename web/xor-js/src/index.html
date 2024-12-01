@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./static/css/index.css">
+        <style>
+            .flag {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+                transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            }
+            .flag.hidden {
+                opacity: 0;
+                transform: translateX(calc(var(--random-x, 0px))) translateY(calc(var(--random-y, 0px)));
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="header">
+                <h1 class="title text">기숙사 배정</h1>
+                <h3 class="sub text">슬리데린에 꼭 배정받고 싶다...!</h3>
+                <h3 class="sub text">모자가 말했다.</h3>
+                <h3 class="sub text">"yes, slytherin"을 1,000,000번 말하면 배정해주겠다!</h3>
+                <h3 class="sub text">꼭 슬리데린에 가자</h3>
+                <h3 class="sub text flag"></h3>
+            </div>
+            <div class="container">
+                <img class="thumb" src="./static/image/s1.png">
+                <form class="input-form">
+                    <input id="input-text" type="text" placeholder="yes, slytherin">
+                    <button type="submit">submit</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            const LOOP_COUNT = 1000000;
+            const VALID_INPUT = "yes, slytherin";
+
+            let yesSlytherinCount = 0;
+            let encryptedFlagAsciis = [29510, 36620, 57857, 8775, 55355, 56152, 44623, 24082, 22623, 43657, 35347, 22623, 57857, 14167, 29509, 35347, 44623, 30157, 29509, 65533];
+            let encryptedFlag = encryptedFlagAsciis.map(c => String.fromCharCode(c)).join('');
+
+            const flagElement = document.querySelector('.flag');
+            const thumbImage = document.querySelector('.thumb');
+            const inputForm = document.querySelector('.input-form');
+            const inputField = document.getElementById('input-text');
+
+            const showFlag = () => {
+                flagElement.style.setProperty('--random-x', `${Math.random() * 200 - 100}px`);
+                flagElement.style.setProperty('--random-y', `${Math.random() * 200 - 100}px`);
+
+                flagElement.classList.add('hidden');
+                setTimeout(() => {
+                    flagElement.textContent = `입력 횟수: ${yesSlytherinCount}, flag: ${encryptedFlag}`;
+                    flagElement.classList.remove('hidden');
+                }, 500);
+            };
+
+            const updateThumbImage = () => {
+                if (yesSlytherinCount >= LOOP_COUNT) {
+                    thumbImage.src = "./static/image/s2.png";
+                }
+            };
+
+            const decrypt = () => {
+                const base = LOOP_COUNT - yesSlytherinCount;
+                encryptedFlagAsciis = encryptedFlagAsciis.map(char => ((char ^ base) + base));
+                encryptedFlag = encryptedFlagAsciis.map(c => String.fromCharCode(c)).join('');
+                showFlag();
+                updateThumbImage();
+            };
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                const inputValue = inputField.value.trim();
+
+                if (inputValue !== VALID_INPUT) {
+                    alert(`올바른 문장을 입력하세요: '${VALID_INPUT}'`);
+                    return;
+                }
+
+                yesSlytherinCount++;
+                inputField.value = "";
+                decrypt();
+            };
+
+            showFlag();
+            inputForm.addEventListener('submit', handleSubmit);
+        </script>
+    </body>
+</html>
