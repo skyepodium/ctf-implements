@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&serverTimezone=UTC
+    username: vbn3h4jfncfGfie
+    password: 12c568#_54fx!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
