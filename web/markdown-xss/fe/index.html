@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="http://127.0.0.1:5500/web/markdown-xss/FE/css/index.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="title">Markdown Blog</h1>
+
+            <form class="form">
+                <textarea name="content" class="content"></textarea>
+                <button class="submit">create post</button>
+            </form>
+        </div>
+
+        <script>
+            const form = document.querySelector('.form');
+            const BASE_URL = 'http://localhost:8080';
+
+            const createPost = (event) => {
+                // Prevent the form from submitting
+                event.preventDefault();
+
+                // content
+                const content = document.querySelector('.content');
+
+                if(!content) {
+                    window.alert('Please enter some content');
+                }
+
+                fetch(`${BASE_URL}/api/v1/post`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ content: content.value })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        window.location.href = `/post/${data.id}`;
+                    });
+            }
+
+            form.addEventListener('submit', createPost);
+        </script>
+    </body>
+</html>
